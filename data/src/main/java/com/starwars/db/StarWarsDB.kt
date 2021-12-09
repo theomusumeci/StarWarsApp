@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.starwars.home.dao.CharacterDao
 import com.starwars.home.data.Character
 
-@Database(entities = [Character::class], version = 1)
+@Database(entities = [Character::class], version = 1, exportSchema = false)
 abstract class StarWarsDB : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDao
