@@ -2,14 +2,15 @@ package com.starwars.starwarsapp
 
 import androidx.room.Room
 import com.starwars.db.StarWarsDB
-import com.starwars.home.dao.CharacterDao
-import com.starwars.repository.home.CharacterRepository
-import com.starwars.repository.home.CharacterRepositoryImpl
+import com.starwars.dao.CharacterDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class AppModule {
 
     @Provides

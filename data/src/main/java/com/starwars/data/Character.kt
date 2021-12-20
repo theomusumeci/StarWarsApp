@@ -1,4 +1,4 @@
-package com.starwars.home.data
+package com.starwars.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

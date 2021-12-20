@@ -1,7 +1,7 @@
-package com.starwars.repository.home
+package com.starwars.repository
 
-import com.starwars.home.dao.CharacterDao
-import com.starwars.home.data.Character
+import com.starwars.dao.CharacterDao
+import com.starwars.data.Character
 import javax.inject.Inject
 import javax.inject.Singleton
 

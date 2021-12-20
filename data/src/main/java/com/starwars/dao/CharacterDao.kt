@@ -1,10 +1,10 @@
-package com.starwars.home.dao
+package com.starwars.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.starwars.home.data.Character
+import com.starwars.data.Character
 
 @Dao
 interface CharacterDao {
