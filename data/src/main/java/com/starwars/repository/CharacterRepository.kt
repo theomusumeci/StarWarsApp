@@ -2,29 +2,36 @@ package com.starwars.repository
 
 import com.starwars.dao.CharacterDao
 import com.starwars.data.Character
+import com.starwars.data.Characters
+import com.starwars.db.StarWarsDB
+import com.starwars.networking.Resource
+import com.starwars.networking.networkBoundResource
 import javax.inject.Inject
 import javax.inject.Singleton
-
-interface CharacterRepository {
-    fun getCharacterById(id: Int): Character
-    fun saveCharacters(characters: List<Character>)
-    fun deleteAllCharacters()
-    fun deleteCharterById(id: Int)
-    fun getAllCharacters(): List<Character>
-}
+import kotlinx.coroutines.flow.Flow
 
 @Singleton
-class CharacterRepositoryImpl @Inject constructor(private val characterDao: CharacterDao) :
-    CharacterRepository {
+class CharacterRepository @Inject constructor(
+    private val characterDao: CharacterDao,
+    private val characterDataSourceProvider: CharacterDataSourceProvider,
+) {
 
-    override fun getCharacterById(id: Int): Character = characterDao.getCharacterById(id)
+    fun getCharacters(): Flow<Resource<Characters>> = networkBoundResource(
+        { characterDao.getCharacters() },
+        { characterDataSourceProvider.getCharacters() },
+        { characters ->
+            characterDao.updateCharcaters(characters)
+        }
+    )
 
-    override fun saveCharacters(characters: List<Character>) =
+    fun getCharacterById(id: Int): Character = characterDao.getCharacterById(id)
+
+    fun saveCharacters(characters: Characters) =
         characterDao.saveCharacters(characters)
 
-    override fun deleteAllCharacters() = characterDao.deleteAllCharacters()
+    fun deleteAllCharacters() = characterDao.deleteCharacters()
 
-    override fun deleteCharterById(id: Int) = characterDao.deleteCharacterById(id)
+    fun deleteCharterById(id: Int) = characterDao.deleteCharacterById(id)
 
-    override fun getAllCharacters(): List<Character> = characterDao.getAllCharacters()
+    fun getAllCharacters(): Flow<Characters> = characterDao.getCharacters()
 }
